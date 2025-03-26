@@ -48,23 +48,22 @@ class Chatbox {
         // Show or hide the chatbox
         if (this.state) {
             chatbox.classList.add('chatbox--active');
-            this.showIntroMessages(chatbox);
         } else {
             chatbox.classList.remove('chatbox--active');
         }
     }
 
     showIntroMessages(chatbox) {
-        let chatmessage = chatbox.querySelector('.chatbox__messages');
-        chatmessage.innerHTML = ""; // Clear any existing messages
-    
-        this.messages.forEach((message) => {
-            let msgHtml = `<div class="messages__item messages__item--visitor">${message.message}</div>`;
-            chatmessage.innerHTML += msgHtml;
-        });
+        let index = 0;
+        const interval = setInterval(() => {
+            if (index < this.messages.length) {
+                this.updateChatText(chatbox);
+                index++;
+            } else {
+                clearInterval(interval);
+            }
+        }, 1500);
     }
-    
-    
 
     onSendButton(chatbox) {
         var textField = chatbox.querySelector('input');
